@@ -1,0 +1,89 @@
+[gd_scene load_steps=8 format=3 uid="uid://06x2j3r0k2q5"]
+
+[ext_resource type="PackedScene" uid="uid://cxof5rvjpgx1l" path="res://addons/cogito/DemoScenes/DemoPrefabs/door_basic.tscn" id="1_door"]
+[ext_resource type="PackedScene" uid="uid://b2cccsfb5tikx" path="res://addons/cogito/CogitoNPC/cogito_npc.tscn" id="2_npc"]
+[ext_resource type="Script" path="res://characters/villager_talk.gd" id="3_talk"]
+[ext_resource type="Script" path="res://characters/npc_hit_locations.gd" id="4_hits"]
+
+[sub_resource type="StandardMaterial3D" id="WoodWall"]
+albedo_color = Color(0.55, 0.38, 0.24, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="WoodFloor"]
+albedo_color = Color(0.45, 0.32, 0.2, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="ThatchRoof"]
+albedo_color = Color(0.42, 0.28, 0.16, 1)
+roughness = 1.0
+
+[node name="Cottage" type="Node3D"]
+
+[node name="Floor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, 0)
+use_collision = true
+size = Vector3(4.8, 0.16, 3.8)
+material = SubResource("WoodFloor")
+
+[node name="BackWall" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, -1.9)
+use_collision = true
+size = Vector3(5.1, 2.6, 0.28)
+material = SubResource("WoodWall")
+
+[node name="LeftWall" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 1.3, 0)
+use_collision = true
+size = Vector3(0.28, 2.6, 3.8)
+material = SubResource("WoodWall")
+
+[node name="RightWall" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 1.3, 0)
+use_collision = true
+size = Vector3(0.28, 2.6, 3.8)
+material = SubResource("WoodWall")
+
+[node name="FrontWall" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 1.9)
+use_collision = true
+
+[node name="Wall" type="CSGBox3D" parent="FrontWall"]
+size = Vector3(5.1, 2.6, 0.28)
+material = SubResource("WoodWall")
+
+[node name="DoorHole" type="CSGBox3D" parent="FrontWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.22, 0)
+operation = 2
+size = Vector3(1.05, 2.16, 0.5)
+
+[node name="RoofLeft" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.8829, 0.4695, 0, -0.4695, 0.8829, 0, 2.58, -1.05)
+use_collision = true
+size = Vector3(5.5, 0.16, 2.7)
+material = SubResource("ThatchRoof")
+
+[node name="RoofRight" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.8829, -0.4695, 0, 0.4695, 0.8829, 0, 2.58, 1.05)
+use_collision = true
+size = Vector3(5.5, 0.16, 2.7)
+material = SubResource("ThatchRoof")
+
+[node name="InteriorLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1, 0)
+light_color = Color(1, 0.88, 0.7, 1)
+light_energy = 1.4
+omni_range = 6.0
+shadow_enabled = false
+
+[node name="Door" parent="." instance=ExtResource("1_door")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 1.78)
+
+[node name="Villager" parent="." instance=ExtResource("2_npc")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 2.85)
+display_name = "Islander"
+
+[node name="Talk" type="Node" parent="Villager"]
+script = ExtResource("3_talk")
+
+[node name="HitLocations" type="Node" parent="Villager"]
+script = ExtResource("4_hits")

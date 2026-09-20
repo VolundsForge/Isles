@@ -1,0 +1,78 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://items/isle_arrow.gd" id="1_proj"]
+
+[sub_resource type="StandardMaterial3D" id="Wood"]
+albedo_color = Color(0.55, 0.36, 0.18, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Iron"]
+albedo_color = Color(0.28, 0.27, 0.25, 1)
+metallic = 0.7
+roughness = 0.4
+
+[sub_resource type="StandardMaterial3D" id="Fletch"]
+albedo_color = Color(0.62, 0.18, 0.14, 1)
+roughness = 0.7
+
+[sub_resource type="CylinderMesh" id="Shaft"]
+top_radius = 0.007
+bottom_radius = 0.007
+height = 0.52
+radial_segments = 6
+
+[sub_resource type="CylinderMesh" id="Tip"]
+top_radius = 0.001
+bottom_radius = 0.012
+height = 0.07
+radial_segments = 6
+
+[sub_resource type="BoxMesh" id="Feather"]
+size = Vector3(0.004, 0.04, 0.07)
+
+[sub_resource type="CylinderShape3D" id="Hit"]
+height = 0.56
+radius = 0.016
+
+[node name="Arrow" type="RigidBody3D"]
+collision_layer = 2
+collision_mask = 3
+mass = 0.08
+gravity_scale = 0.45
+continuous_cd = true
+contact_monitor = true
+max_contacts_reported = 8
+script = ExtResource("1_proj")
+destroy_on_impact = false
+stick_on_impact = true
+display_name = "Arrow"
+
+[node name="Shaft" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("Shaft")
+surface_material_override/0 = SubResource("Wood")
+
+[node name="Tip" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.29)
+mesh = SubResource("Tip")
+surface_material_override/0 = SubResource("Iron")
+
+[node name="Fletch1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0.22)
+mesh = SubResource("Feather")
+surface_material_override/0 = SubResource("Fletch")
+
+[node name="Fletch2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.5, -0.866025, 0, 0.866025, -0.5, 0, 0, 0, 1, 0, -0.01, 0.22)
+mesh = SubResource("Feather")
+surface_material_override/0 = SubResource("Fletch")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("Hit")
+
+[node name="Lifespan" type="Timer" parent="."]
+wait_time = 18.0
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

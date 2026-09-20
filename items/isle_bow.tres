@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="WieldableItemPD" format=3]
+
+[ext_resource type="Texture2D" uid="uid://h6c4g2wtkb48" path="res://addons/cogito/Assets/Graphics/ItemIcons/Cogito_Pickaxe.png" id="1_icon"]
+[ext_resource type="Script" uid="uid://bkxgkf3pj8kb8" path="res://addons/cogito/InventoryPD/CustomResources/WieldableItemPD.gd" id="2_script"]
+[ext_resource type="PackedScene" path="res://items/wieldable_bow.tscn" id="3_scene"]
+[ext_resource type="Texture2D" uid="uid://bumuahv4keox4" path="res://addons/cogito/Assets/Graphics/Crosshair_Kenney/crosshair037.png" id="4_cross"]
+[ext_resource type="AudioStream" uid="uid://npav2p2tk10i" path="res://addons/cogito/Assets/Audio/Kenney/handleSmallLeather.ogg" id="5_pick"]
+
+[resource]
+script = ExtResource("2_script")
+wieldable_scene = ExtResource("3_scene")
+wieldable_crosshair = ExtResource("4_cross")
+no_reload = true
+hint_on_empty = "No arrows left."
+charge_max = 24.0
+charge_current = 24.0
+wieldable_range = 40.0
+wieldable_damage = 4.0
+name = "Hunting Bow"
+description = "A short yew bow. Twenty-four arrows in the quiver."
+icon = ExtResource("1_icon")
+is_droppable = false
+sound_pickup = ExtResource("5_pick")
+can_auto_slot = true
+slot_number = 1

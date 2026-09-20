@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" uid="uid://b2cccsfb5tikx" path="res://addons/cogito/CogitoNPC/cogito_npc.tscn" id="1_npc"]
+[ext_resource type="Script" path="res://characters/villager_talk.gd" id="2_talk"]
+[ext_resource type="Script" path="res://characters/npc_hit_locations.gd" id="3_hits"]
+
+[node name="Islander" instance=ExtResource("1_npc")]
+display_name = "Islander"
+
+[node name="Talk" type="Node" parent="." index="0"]
+script = ExtResource("2_talk")
+
+[node name="HitLocations" type="Node" parent="." index="1"]
+script = ExtResource("3_hits")

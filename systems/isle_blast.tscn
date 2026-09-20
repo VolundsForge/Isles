@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://systems/isle_blast.gd" id="1_blast"]
+
+[node name="IsleBlast" type="Node3D"]
+script = ExtResource("1_blast")
+radius = 7.0
+kill_radius = 5.0
+ragdoll_radius = 7.0
+force = 36.0
+damage = 12.0
